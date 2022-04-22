@@ -100,6 +100,16 @@
             } 
             $string = str_replace($match, $replacement, $string); 
         } 
+	$tags = 'script'; 
+        while (preg_match_all('/\<('.$tags.')=?(.*?)\>(.+?)\<\/\1\>/s', $string, $matches)) foreach ($matches[0] as $key => $match) { 
+            list($tag, $param, $innertext) = array($matches[1][$key], $matches[2][$key], $matches[3][$key]); 
+			
+            switch ($tag) { 
+                case 'script': $replacement = "[script]".$innertext."[/script]"; break; 
+				break;
+            } 
+            $string = str_replace($match, $replacement, $string); 
+        } 
         return $string; 
     }
 ?>
